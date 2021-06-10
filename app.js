@@ -50,7 +50,7 @@ const scrape = async () => {
 
 async function getLatestPaste() {
   let latestPaste = await Paste.findOne({}).sort([["time", -1]]);
-  //* If DB is empty, i return a old date, to be sure to collect all pastes.
+  //* If DB is empty, i return an old date, to be sure to collect all pastes.
   if (latestPaste == undefined) {
     const time = new Date(2020 - 01 - 01);
     return time;

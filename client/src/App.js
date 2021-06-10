@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import { useState, useEffect } from "react";
+import "./App.css";
+import Paste from "./components/Paste";
+import Pagination from "./components/Pagination";
 
 function App() {
+  const [pastes, setPastes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currectPage, setCurrectPage] = useState(1);
+  const [pastesPerPage] = useState(10);
+
+  useEffect(() => {
+    const getPastes = async () => {
+      setLoading(true);
+      const response = await axios.get("http://localhost:3001");
+      setPastes(response.data);
+      setLoading(false);
+    };
+    getPastes();
+  }, []);
+
+  const indexOfLastPost = currectPage * pastesPerPage;
+  const indexOfFirstPost = indexOfLastPost - pastesPerPage;
+  const correctPost = pastes.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = pageNumber => setCurrectPage(pageNumber);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Paste pastes={correctPost} loading={loading} />
+      <Pagination
+        pastesPerPage={pastesPerPage}
+        totalPastes={pastes.length}
+        paginate={paginate}
+      />
     </div>
   );
 }

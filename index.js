@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
+const cors = require("cors");
 const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
 const { scrape } = require("./app");
@@ -8,6 +9,7 @@ const Paste = require("./Models/Paste");
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 mongoose
   .connect(MONGO_URI, {
@@ -27,11 +29,12 @@ mongoose
   });
 
 app.get("/", async (req, res) => {
-  const data = await Paste.find({});
+  const data = await Paste.find({}).sort([["time", -1]]);
+
   res.send(data);
 });
 
-// scrape();
-// setInterval(() => {
-//   scrape();
-// }, 120000);
+scrape();
+setInterval(() => {
+  scrape();
+}, 120000);
