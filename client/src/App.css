@@ -91,3 +91,9 @@ li a:hover {
   width: 100%;
   background-color: #333333;
 }
+.inputDiv {
+  text-align: center;
+}
+#searchInput {
+  width: 350px;
+}

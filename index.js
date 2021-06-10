@@ -29,8 +29,14 @@ mongoose
   });
 
 app.get("/", async (req, res) => {
-  const data = await Paste.find({}).sort([["time", -1]]);
-
+  let data = await Paste.find({}).sort([["time", -1]]);
+  const { searchText } = req.query;
+  if (searchText) {
+    const lowerCaseText = searchText.toLowerCase();
+    data = data.filter(serach => {
+      return serach.title.toLowerCase().includes(lowerCaseText);
+    });
+  }
   res.send(data);
 });
 

@@ -1,5 +1,4 @@
 import React from "react";
-// TODO fix date
 function Paste({ pastes, loading }) {
   //* Spinner
   if (loading) {
@@ -18,7 +17,13 @@ function Paste({ pastes, loading }) {
       </div>
     );
   }
-  console.log(pastes.length);
+  //* Fix time of each paste to look better
+  pastes.map(paste => {
+    paste.time = new Date(paste.time)
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+  });
   return (
     <div>
       {pastes.map((paste, i) => (

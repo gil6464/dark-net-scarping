@@ -11,7 +11,7 @@ function Pagination({ pastesPerPage, totalPastes, paginate }) {
       <ul className="nav-link">
         {pageNumbers.map(number => (
           <li key={number} className="page-list">
-            <a onClick={() => paginate(number)} href="">
+            <a onClick={() => paginate(number)} href="!#">
               {number}
             </a>
           </li>

@@ -24,11 +24,7 @@ const scrape = async () => {
           paste.text = $(".text").text().trim();
           const metadata = $(".col-sm-6").text().trim();
           paste.author = metadata.split(" ")[2];
-          const time = new Date(metadata.split(" ").slice(4, 8));
-          paste.time = new Date(time)
-            .toISOString()
-            .slice(0, 19)
-            .replace("T", " ");
+          paste.time = new Date(metadata.split(" ").slice(4, 8));
 
           //* Check if correct paste is newer then the latest paste that saved in the DB
 
