@@ -1,13 +1,10 @@
-//* Step one- get html page for each page, one by one.
-//* Step two -collect each paste URL
-//* get request for each paste URL, and collect paste data.
-//* Get page html
 const cheerio = require("cheerio");
-const { response } = require("express");
 const torRequest = require("tor-request");
 const strongHoldUrl = "http://nzxj65x32vh2fkhk.onion/all";
 
-async function scrape() {
+//* This function returns array of URL of each paste, go page by page until she getn an error, and collect urls.
+
+async function pastesURL() {
   let pageNum = 1;
   const forumPastesUrls = [];
   while (true) {
@@ -22,22 +19,12 @@ async function scrape() {
       console.log(error);
       break;
     }
-
-    //* Check if page if exists
-    //* Collect each paste URL.
-    //* Go to next page.
   }
   return forumPastesUrls;
-  //* with forumPastesUrls and map enter each paste and collect his data
-
-  //* const pastesPromises = forumPastesUrls.map(pasteUrl => {
-  //*   return getPastePageHTML(pasteUrl).
-  // *   then(HTML => {
-  // *        return getPasteFromHTML(HTML)
-  //*     })
-  // *})
-  //* return Promise.all(pastesPromises);
 }
+
+//* This function recive page num, and returns page html.
+
 function getPageHTML(pageNum) {
   const pageUrl = `${strongHoldUrl}?page=${pageNum}`;
 
@@ -48,6 +35,8 @@ function getPageHTML(pageNum) {
     });
   });
 }
+
+//* This function recive html page, collect and return each address of paste.
 
 function collectPasteUrls(pageHTML) {
   const pasteURLS = [];
@@ -60,4 +49,4 @@ function collectPasteUrls(pageHTML) {
   return pasteURLS;
 }
 
-module.exports = { scrape };
+module.exports = { pastesURL };
