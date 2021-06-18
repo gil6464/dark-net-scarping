@@ -23,6 +23,7 @@ function Paste({ pastes, loading }) {
       .toISOString()
       .slice(0, 19)
       .replace("T", " ");
+    return paste;
   });
   return (
     <div>

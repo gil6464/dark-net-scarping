@@ -10,6 +10,10 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [currectPage, setCurrectPage] = useState(1);
   const [pastesPerPage] = useState(15);
+  //* Those variables are for pagination.
+  const indexOfLastPost = currectPage * pastesPerPage;
+  const indexOfFirstPost = indexOfLastPost - pastesPerPage;
+  const correctPost = pastes.slice(indexOfFirstPost, indexOfLastPost);
 
   useEffect(() => {
     const getPastes = async () => {
@@ -20,10 +24,6 @@ function App() {
     };
     getPastes();
   }, []);
-
-  const indexOfLastPost = currectPage * pastesPerPage;
-  const indexOfFirstPost = indexOfLastPost - pastesPerPage;
-  const correctPost = pastes.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = pageNumber => {
     setCurrectPage(pageNumber);

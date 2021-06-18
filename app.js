@@ -7,7 +7,7 @@ const { Model } = require("mongoose");
 //* Go to each paste URL, and collect his relevant data.
 
 const scrape = async () => {
-  console.log("Scrape Start");
+  console.log("Scraper Start");
 
   const latestPaste = await getLatestPaste();
   let count = 0;
