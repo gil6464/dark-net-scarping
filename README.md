@@ -13,7 +13,7 @@ This app collect posts from the "StrongHold Paste" that in the dark net, and dis
 - Docker
 - Tor-request
 - Cheerio
-- 
+
 To get into the dark net, my app used in the tor-request to get into the website and cheerio to collect the text from each HTML element.
 In additon i used in Docker to build a proxy of port 9050 that tor-request needs.
 
